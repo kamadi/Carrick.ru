@@ -11,13 +11,14 @@ chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
 $('#change').change(function () {
     start($(this).prop('checked'));
 });
+
 function start(state) {
     console.log(currentTab);
     chrome.tabs.insertCSS(currentTab.id, {
-        file: 'style.css'
+        file: 'css/style.css'
     });
     chrome.tabs.executeScript(currentTab.id, {file: "js/jquery.min.js"}, function () {
-        chrome.tabs.executeScript(currentTab.id, {file: "content.js"}, function () {
+        chrome.tabs.executeScript(currentTab.id, {file: "js/content.js"}, function () {
             chrome.tabs.sendMessage(currentTab.id, state);
         });
     });
